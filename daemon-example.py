@@ -12,7 +12,8 @@ class MyDaemon(Daemon):
 
 	def run(self):
 		while True:
-			time.sleep(1)
+			print "daemon-example"
+			time.sleep(5)
 
 if __name__ == "__main__":
 	daemon = MyDaemon('/tmp/daemon-example.pid')
