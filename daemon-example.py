@@ -1,8 +1,10 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import sys, time
 import logging
 import logging.handlers
+from datetime import datetime, date
 
 from daemon import Daemon
 
@@ -12,7 +14,7 @@ class MyDaemon(Daemon):
 
 	def run(self):
 		while True:
-			print "daemon-example"
+			print datetime.now().strftime('%d/%m/%Y %I:%M:%S %p')
 			time.sleep(5)
 
 if __name__ == "__main__":
