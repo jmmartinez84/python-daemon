@@ -15,8 +15,12 @@ class DjangoRestClient:
             self.baseUrl = url+'/'
         if proxy != None:
             proxyHandler = urllib2.ProxyHandler({'http': proxy})
+        else:
+            proxyHandler = None
         if debug:
             debugHandler=urllib2.HTTPHandler(debuglevel=1)
+        else:
+            debugHandler = None
             
         if debugHandler != None and proxyHandler != None:
             opener = urllib2.build_opener(proxyHandler, debugHandler)
