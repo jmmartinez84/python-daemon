@@ -276,14 +276,14 @@ class DjangoRestClient:
 
     def get_alerts_not_sent(self):
         alert_url = u'alert/'
-        url = self.baseUrl+aler_url+u'?sent=false'
+        url = self.baseUrl+alert_url+u'?sent=False'
         content = urllib2.urlopen(url).read()
         alerts_to_send = json.loads(content)
         return alerts_to_send
 
     def add_alert(self, text):
         alert_url = u'alert/'
-        url = self.baseUrl+aler_url
+        url = self.baseUrl+alert_url
         data = urllib.urlencode({'alert_text' : text,
                                  'sent': False})
         content = urllib2.urlopen(url=url, data=data).read()
