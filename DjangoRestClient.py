@@ -6,15 +6,26 @@ import urllib, urllib2
 import base64
 
 class DjangoRestClient:
-    #baseUrl=u'http://django-rest.azurewebsites.net/'
-    baseUrl = u'http://127.0.0.1:8000/'
     my_opener = None
-    def __init__(self, username, password, debug=False):
+    baseUrl = None
+    def __init__(self, url, username, password, debug=False, proxy=None ):
+        if url.endswith('/'):
+            self.baseUrl = url
+        else:
+            self.baseUrl = url+'/'
+        if proxy != None:
+            proxyHandler = urllib2.ProxyHandler({'http': proxy})
         if debug:
             debugHandler=urllib2.HTTPHandler(debuglevel=1)
+            
+        if debugHandler != None and proxyHandler != None:
+            opener = urllib2.build_opener(proxyHandler, debugHandler)
+        elif debugHandler != None:
             opener = urllib2.build_opener(debugHandler)
+        elif proxyHandler != None:
+            opener = urllib2.build_opener(proxyHandler)
         else:
-            opener = urllib2.build_opener()        
+            opener = urllib2.build_opener()
         self.auth_api(opener, username,password)
     def auth_api(self, opener, username, password):
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
