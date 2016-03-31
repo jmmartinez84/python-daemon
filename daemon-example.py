@@ -5,6 +5,7 @@ import sys, time
 import logging
 import logging.handlers
 from datetime import datetime, date
+from DjangoRestClient import DjangoRestClient
 
 from daemon import Daemon
 
