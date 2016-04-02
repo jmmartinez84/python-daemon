@@ -17,7 +17,7 @@ from yowsup.layers import YowLayerEvent
 from yowsup.stacks import YowStack, YOWSUP_CORE_LAYERS
 from yowsup.layers.axolotl                     import YowAxolotlLayer
 
-credentials = settings['Yowsup']
+credentials = settings.get('Yowsup')
 phone = credentials['phone']
 password = credentials['pwd']
 CREDENTIALS = (phone, password) # replace with your phone and password
