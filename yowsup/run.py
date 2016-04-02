@@ -3,6 +3,7 @@
 
 from layer import HomeLayer
 from settings import import settings
+import logging
 from yowsup.layers                             import YowParallelLayer
 from yowsup.layers.auth                        import YowAuthenticationProtocolLayer
 from yowsup.layers.protocol_messages           import YowMessagesProtocolLayer
@@ -21,6 +22,7 @@ credentials = settings['Yowsup']
 phone = credentials['phone']
 password = credentials['pwd']
 CREDENTIALS = (phone, password) # replace with your phone and password
+logging.basicConfig(level = logging.DEBUG)
 
 if __name__==  "__main__":
     layers = (
