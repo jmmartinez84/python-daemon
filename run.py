@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from layer import HomeLayer
-import settings
+from settings import settings
 import logging
 from yowsup.layers                             import YowParallelLayer
 from yowsup.layers.auth                        import YowAuthenticationProtocolLayer
