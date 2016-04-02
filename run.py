@@ -15,8 +15,7 @@ from yowsup.stacks import YowStack
 from yowsup.common import YowConstants
 from yowsup.layers import YowLayerEvent
 from yowsup.stacks import YowStack, YOWSUP_CORE_LAYERS
-from yowsup.layers.axolotl                     import YowAxolotlLayer
-from yowsup.env import YowsupEnv
+from yowsup.layers.axolotl                     import YowAxolotlLayers
 
 credentials = settings['Yowsup']
 phone = credentials['phone']
