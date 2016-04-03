@@ -36,5 +36,4 @@ if __name__==  "__main__":
     stack.setProp(YowCoderLayer.PROP_RESOURCE, YowsupEnv.getCurrent().getResource())          #info about us as WhatsApp client
 
     stack.broadcastEvent(YowLayerEvent(YowNetworkLayer.EVENT_STATE_CONNECT))   #sending the connect signal
-
     stack.loop() #this is the program mainloop
