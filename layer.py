@@ -5,6 +5,7 @@ from yowsup.layers.interface                           import YowInterfaceLayer,
 from yowsup.layers.protocol_messages.protocolentities  import TextMessageProtocolEntity
 from yowsup.layers.protocol_receipts.protocolentities  import OutgoingReceiptProtocolEntity
 from yowsup.layers.protocol_acks.protocolentities      import OutgoingAckProtocolEntity
+from yowsup.layers.protocol_iq.protocolentities        import *
 
 
 
@@ -22,6 +23,10 @@ class HomeLayer(YowInterfaceLayer):
         self.toLower(messageProtocolEntity.ack())
         self.toLower(messageProtocolEntity.ack(True))
 
+
+    @ProtocolEntityCallback("iq")
+    def onIq(self, entity):
+        print(entity)
 
     @ProtocolEntityCallback("receipt")
     def onReceipt(self, entity):
