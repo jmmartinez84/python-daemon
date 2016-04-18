@@ -289,6 +289,21 @@ class DjangoRestClient:
         content = urllib2.urlopen(url=url, data=data).read()
         alert = json.loads(content)
         return alert
+        
+   def update_alert(self, alert):
+        alert_url = u'alert/'
+        url = self.baseUrl+alert_url+str(alert['pk'])+u'/'
+        request = urllib2.Request(url, data=json.dumps(alert))
+        request.add_header('Content-Type', 'application/json')
+        request.get_method = lambda: 'PUT'
+        response = self.my_opener.open(request)
+        response.close()
+        return response
+        
+    def set_alert_as_sent(self, alert):
+       alert["sent"]=True
+       new_alert = self.update_alert(alert)
+       return new_alert
 
     def add_temperature(self, serial, temperature, humidity):
         temperature_url = u'temperature/'

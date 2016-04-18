@@ -16,6 +16,8 @@ class HomeLayer(YowInterfaceLayer):
     def __init__(self):
         super(HomeLayer, self).__init__()
         self.threads = []
+        self.ackQueue = []
+        self.alertQueue =[]
         t = threading.Thread(target=self.worker, name='Alerts')
         self.threads.append(t)
         t.start()
@@ -28,9 +30,27 @@ class HomeLayer(YowInterfaceLayer):
         while True:
             print 'Worker: %s' % name
             alerts = drc.get_alerts_not_sent()
+            self.lock.acquire()
             for alert in alerts:
+                 self.alertQueue.append(alert)
+            self.lock.release()
+            time.sleep(30)
+    @ProtocolEntityCallback("success")
+    def onSuccess(self, successProtocolEntity): 
+        while True:
+            self.lock.acquire()
+            for alert in self.alertQueue:
+                messageEntity = TextMessageProtocolEntity(message, to = Jid.normalize("34629927701"))
+                self.ackQueue.append(messageEntity.getId())
                 print(alert)
-            time.sleep(60*5)
+            self.lock.release()
+            time.sleep(15) 
+    @ProtocolEntityCallback("ack")
+    def onAck(self, entity):
+        self.lock.acquire()
+        #if the id match the id in ackQueue, then pop the id of the message out
+        if entity.getId() in self.ackQueue:
+            self.ackQueue.pop(self.ackQueue.index(entity.getId()))
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
