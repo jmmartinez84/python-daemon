@@ -289,8 +289,7 @@ class DjangoRestClient:
         content = urllib2.urlopen(url=url, data=data).read()
         alert = json.loads(content)
         return alert
-        
-   def update_alert(self, alert):
+    def update_alert(self, alert):
         alert_url = u'alert/'
         url = self.baseUrl+alert_url+str(alert['pk'])+u'/'
         request = urllib2.Request(url, data=json.dumps(alert))
