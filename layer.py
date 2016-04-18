@@ -18,6 +18,7 @@ class HomeLayer(YowInterfaceLayer):
         self.threads = []
         self.ackQueue = []
         self.alertQueue =[]
+        self.lock = threading.Condition()
         t = threading.Thread(target=self.worker, name='Alerts')
         self.threads.append(t)
         t.start()
