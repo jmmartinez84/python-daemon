@@ -22,8 +22,8 @@ class HomeLayer(YowInterfaceLayer):
         self.lock = threading.Condition()
         self.credentials = settings.get('DjangoREST')
         self.config = settings.get('YowsupHome')
-        self.worker_sleep_time = int(settings.get('YowsupHome')['MessagesSleep'])*2
-        self.messages_sleep_time = int(settings.get('YowsupHome')['MessagesSleep'])
+        self.worker_sleep_time = int(settings.get('YowsupHome')['messagessleep'])*2
+        self.messages_sleep_time = int(settings.get('YowsupHome')['messagessleep'])
         self.admin_phone = settings.get('YowsupHome')['adminphone']
         t = threading.Thread(target=self.worker, name='Alerts')
         self.threads.append(t)
