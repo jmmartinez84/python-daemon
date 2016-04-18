@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import threading
 from yowsup.layers.interface                           import YowInterfaceLayer, ProtocolEntityCallback
 from yowsup.layers.protocol_messages.protocolentities  import TextMessageProtocolEntity
 from yowsup.layers.protocol_receipts.protocolentities  import OutgoingReceiptProtocolEntity
@@ -10,7 +11,17 @@ from yowsup.layers.protocol_iq.protocolentities        import *
 
 
 class HomeLayer(YowInterfaceLayer):
+    threads = []
+    def __init__(self):
+        for i in range(5):
+        t = threading.Thread(target=self.worker, args=(i,))
+        self.threads.append(t)
+        t.start()
 
+    def worker(num):
+    """thread worker function"""
+    print 'Worker: %s' % num
+    return
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
