@@ -11,8 +11,9 @@ from yowsup.layers.protocol_iq.protocolentities        import *
 
 
 class HomeLayer(YowInterfaceLayer):
-    threads = []
     def __init__(self):
+        super(HomeLayer, self).__init__()
+        self.threads = []
         for i in range(5):
             t = threading.Thread(target=self.worker, args=(i,))
             self.threads.append(t)
