@@ -14,12 +14,11 @@ class HomeLayer(YowInterfaceLayer):
     def __init__(self):
         super(HomeLayer, self).__init__()
         self.threads = []
-        for i in range(5):
-            t = threading.Thread(target=self.worker, name='Alerts')
-            self.threads.append(t)
-            t.start()
+        t = threading.Thread(target=self.worker, name='Alerts')
+        self.threads.append(t)
+        t.start()
 
-    def worker(self, num):
+    def worker(self):
         """thread worker function"""
         name = threading.current_thread().getName()
         print 'Worker: %s' % name
