@@ -19,9 +19,9 @@ class HomeLayer(YowInterfaceLayer):
             t.start()
 
     def worker(num):
-    """thread worker function"""
-    print 'Worker: %s' % num
-    return
+        """thread worker function"""
+        print 'Worker: %s' % num
+        return
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
