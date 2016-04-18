@@ -15,13 +15,14 @@ class HomeLayer(YowInterfaceLayer):
         super(HomeLayer, self).__init__()
         self.threads = []
         for i in range(5):
-            t = threading.Thread(target=self.worker, args=(i,))
+            t = threading.Thread(target=self.worker, name='Alerts')
             self.threads.append(t)
             t.start()
 
     def worker(self, num):
         """thread worker function"""
-        print 'Worker: %s' % num
+        name = threading.current_thread().getName()
+        print 'Worker: %s' % name
         return
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
