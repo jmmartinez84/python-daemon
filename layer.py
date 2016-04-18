@@ -18,7 +18,7 @@ class HomeLayer(YowInterfaceLayer):
             self.threads.append(t)
             t.start()
 
-    def worker(num):
+    def worker(self, num):
         """thread worker function"""
         print 'Worker: %s' % num
         return
