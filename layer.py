@@ -20,6 +20,11 @@ class HomeLayer(YowInterfaceLayer):
         self.ackQueue = []
         self.alertQueue =[]
         self.lock = threading.Condition()
+        self.credentials = settings.get('DjangoREST')
+        self.config = settings.get('YowsupHome')
+        self.worker_sleep_time = int(settings.get('YowsupHome')['MessagesSleep'])*2
+        self.messages_sleep_time = int(settings.get('YowsupHome')['MessagesSleep'])
+        self.admin_phone = settings.get('YowsupHome')['adminphone']
         t = threading.Thread(target=self.worker, name='Alerts')
         self.threads.append(t)
         t.start()
@@ -27,8 +32,7 @@ class HomeLayer(YowInterfaceLayer):
     def worker(self):
         """thread worker function"""
         name = threading.current_thread().getName()
-        credentials = settings.get('DjangoREST')
-        drc = DjangoRestClient(credentials['url'],credentials['user'],credentials['pwd'])
+        drc = DjangoRestClient(self.credentials['url'], self.credentials['user'], self.credentials['pwd'])
         while True:
             print 'Worker: %s' % name
             alerts = drc.get_alerts_not_sent()
@@ -36,24 +40,26 @@ class HomeLayer(YowInterfaceLayer):
             for alert in alerts:
                  self.alertQueue.append(alert)
             self.lock.release()
-            time.sleep(30)
+            time.sleep(self.worker_sleep_time)
     @ProtocolEntityCallback("success")
     def onSuccess(self, successProtocolEntity): 
         while True:
             self.lock.acquire()
             for alert in self.alertQueue:
                 message = alert['alert_text']
-                messageEntity = TextMessageProtocolEntity(message, to = Jid.normalize("34629927701"))
-                self.ackQueue.append(messageEntity.getId())
+                messageEntity = TextMessageProtocolEntity(message, to = Jid.normalize(self.admin_phone))
+                ack_id = messageEntity.getId()
+                self.ackQueue.append(ack_id)
                 print(alert)
             self.lock.release()
-            time.sleep(15) 
+            time.sleep(self.messages_sleep_time) 
     @ProtocolEntityCallback("ack")
     def onAck(self, entity):
         self.lock.acquire()
         #if the id match the id in ackQueue, then pop the id of the message out
         if entity.getId() in self.ackQueue:
             self.ackQueue.pop(self.ackQueue.index(entity.getId()))
+        self.lock.release()
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
