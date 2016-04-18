@@ -14,9 +14,9 @@ class HomeLayer(YowInterfaceLayer):
     threads = []
     def __init__(self):
         for i in range(5):
-        t = threading.Thread(target=self.worker, args=(i,))
-        self.threads.append(t)
-        t.start()
+            t = threading.Thread(target=self.worker, args=(i,))
+            self.threads.append(t)
+            t.start()
 
     def worker(num):
     """thread worker function"""
