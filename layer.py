@@ -4,6 +4,7 @@
 import threading, time
 from settings import settings
 from DjangoRestClient import DjangoRestClient
+from yowsup.common.tools import Jid
 from yowsup.layers.interface                           import YowInterfaceLayer, ProtocolEntityCallback
 from yowsup.layers.protocol_messages.protocolentities  import TextMessageProtocolEntity
 from yowsup.layers.protocol_receipts.protocolentities  import OutgoingReceiptProtocolEntity
