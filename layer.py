@@ -25,10 +25,10 @@ class HomeLayer(YowInterfaceLayer):
         drc = DjangoRestClient(settings['Django_url'],settings['Django_user'],settings['Django_pwd'])
         while True:
             print 'Worker: %s' % name
-			alerts = drc.get_alerts_not_sent()
+            alerts = drc.get_alerts_not_sent()
             for alert in alerts:
                 print(alert)
-			time.sleep(15)
+            time.sleep(15)
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
