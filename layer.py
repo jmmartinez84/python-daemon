@@ -30,7 +30,7 @@ class HomeLayer(YowInterfaceLayer):
             alerts = drc.get_alerts_not_sent()
             for alert in alerts:
                 print(alert)
-            time.sleep(15)
+            time.sleep(60*5)
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
