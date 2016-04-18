@@ -41,6 +41,7 @@ class HomeLayer(YowInterfaceLayer):
         while True:
             self.lock.acquire()
             for alert in self.alertQueue:
+                message = alert['alert_text']
                 messageEntity = TextMessageProtocolEntity(message, to = Jid.normalize("34629927701"))
                 self.ackQueue.append(messageEntity.getId())
                 print(alert)
