@@ -21,10 +21,14 @@ class HomeLayer(YowInterfaceLayer):
     def worker(self):
         """thread worker function"""
         name = threading.current_thread().getName()
+        settings = self.get_config
+        drc = DjangoRestClient(settings['Django_url'],settings['Django_user'],settings['Django_pwd'])
         while True:
             print 'Worker: %s' % name
-            time.sleep(10)
-        return
+			alerts = drc.get_alerts_not_sent()
+            for alert in alerts:
+                print(alert)
+			time.sleep(15)
     @ProtocolEntityCallback("message")
     def onMessage(self, messageProtocolEntity):
 
