@@ -21,8 +21,8 @@ class HomeLayer(YowInterfaceLayer):
     def worker(self):
         """thread worker function"""
         name = threading.current_thread().getName()
-        settings = self.get_config
-        drc = DjangoRestClient(settings['Django_url'],settings['Django_user'],settings['Django_pwd'])
+        credentials = settings.get('DjangoREST')
+        drc = DjangoRestClient(credentials['url'],credentials['user'],credentials['pwd'])
         while True:
             print 'Worker: %s' % name
             alerts = drc.get_alerts_not_sent()
