@@ -11,7 +11,7 @@ from yowsup.layers.protocol_receipts           import YowReceiptProtocolLayer
 from yowsup.layers.protocol_acks               import YowAckProtocolLayer
 from yowsup.layers.network                     import YowNetworkLayer
 from yowsup.layers.coder                       import YowCoderLayer
-from yowsup.layer.protocol_iq                  import YowIqProtocolLayer
+from yowsup.layers.protocol_iq                 import YowIqProtocolLayer
 from yowsup.stacks import YowStack
 from yowsup.common import YowConstants
 from yowsup.layers import YowLayerEvent
