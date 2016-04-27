@@ -7,7 +7,7 @@ token = my_settings['token']
 chat_id = my_settings['chat_id'];
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
-jobs. = updater.job_queue
+jobs = updater.job_queue
 updater.start_polling()
 def start(bot, update):
     bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
