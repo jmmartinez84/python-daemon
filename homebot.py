@@ -17,7 +17,8 @@ def test(bot, update):
     results = bot.sendMessage(chat_id=update.message.chat_id, text="Test", reply_markup=reply_markup)
     print results
 def job2(bot):
-    bot.sendMessage(chat_id=chat_id, text='A single message with 30s delay')
+    reply_markup = telegram.ReplyKeyboardHide()
+    bot.sendMessage(chat_id=chat_id, text='A single message with 30s delay',reply_markup=reply_markup)
 start_handler = CommandHandler('start', start)
 dispatcher.addHandler(start_handler)
 test_handler = CommandHandler('test', test)
