@@ -13,7 +13,7 @@ def start(bot, update):
     bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
 def wifi(bot, update):
     custom_keyboard = [[ telegram.KeyboardButton("On"),telegram.KeyboardButton("Off"), telegram.KeyboardButton("Cancel") ]]
-    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
+    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard,  resize_keyboard = True, one_time_keyboard=True)
     results = bot.sendMessage(chat_id=update.message.chat_id, text="Wifi:", reply_markup=reply_markup)
     print results
 def job2(bot):
