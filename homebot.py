@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import telegram
-from telegram.ext import Updater, MessageHandler, filters
+from telegram.ext import Updater, MessageHandler, Filters
 from settings import settings
 from telegram.ext import CommandHandler
 from DjangoRestClient import DjangoRestClient
