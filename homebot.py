@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import telegram
-from telegram.ext import Updater, MessageHandler, Filters
+from telegram.ext import Updater, MessageHandler, filters
 from settings import settings
 from telegram.ext import CommandHandler
 from DjangoRestClient import DjangoRestClient
@@ -22,7 +22,7 @@ dispatcher = updater.dispatcher
 jobs = updater.job_queue
 updater.start_polling()
 updater.idle()
-def text_message_handler(bot, update):
+def text_message(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
     text = update.message.text
@@ -49,6 +49,8 @@ def job_alerts(bot):
         drc.set_alert_as_sent(alert)
 start_handler = CommandHandler('start', start)
 dispatcher.addHandler(start_handler)
+text_message_handler = MessageHandler([Filters.text], text_message)
+dispatcher.addHandler(text_message_handler)
 wifi_handler = CommandHandler('wifi', wifi)
 dispatcher.addHandler(wifi_handler)
 jobs.put(job_alerts, 5*60)
