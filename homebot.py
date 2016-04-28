@@ -20,8 +20,7 @@ job_chat_id = my_settings['chat_id'];
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
 jobs = updater.job_queue
-updater.start_polling()
-updater.idle()
+
 def text_message(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
@@ -54,3 +53,5 @@ dispatcher.addHandler(text_message_handler)
 wifi_handler = CommandHandler('wifi', wifi)
 dispatcher.addHandler(wifi_handler)
 jobs.put(job_alerts, 5*60)
+updater.start_polling()
+updater.idle()
