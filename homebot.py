@@ -48,6 +48,7 @@ def set_wifi(value):
     r_api.wifi_settings(value);
     r_api.log_out();
 def start(bot, update):
+    chat_id = update.message.chat_id
     state[chat_id] = MENU
     bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
 def wifi(bot, update):
