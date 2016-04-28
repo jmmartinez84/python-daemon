@@ -28,12 +28,15 @@ MENU, AWAIT_CONFIRMATION, AWAIT_INPUT = range(3)
 
 # States are saved in a dict that maps chat_id -> state
 state = dict()
+# Sometimes you need to save data temporarily
+context = dict()
 
 def text_message(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
     text = update.message.text
     chat_state = state.get(chat_id, MENU)
+    chat_context = context.get(chat_id, None)
     if chat_state == AWAIT_INPUT and chat_context == user_id:
         reply_markup = telegram.ReplyKeyboardHide()
         if text == ON:
@@ -56,6 +59,7 @@ def wifi(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
     state[chat_id] = AWAIT_INPUT
+    context[chat_id] = user_id 
     custom_keyboard = [[ telegram.KeyboardButton(ON),telegram.KeyboardButton(OFF), telegram.KeyboardButton(Cancel) ]]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard,  resize_keyboard = False, one_time_keyboard=True)
     results = bot.sendMessage(chat_id=update.message.chat_id, text="Wifi:", reply_markup=reply_markup)
