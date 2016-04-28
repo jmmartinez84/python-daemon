@@ -39,12 +39,16 @@ def text_message(bot, update):
     chat_context = context.get(chat_id, None)
     if chat_state == AWAIT_INPUT and chat_context == user_id:
         reply_markup = telegram.ReplyKeyboardHide()
+        message = ""
         if text == ON:
-            bot.sendMessage(chat_id=update.message.chat_id, text="On wifi", reply_markup=reply_markup)
+            set_wifi(True)
+            message = "WiFi enabled"
         elif text == OFF:
-            bot.sendMessage(chat_id=update.message.chat_id, text="Off wifi", reply_markup=reply_markup)
-        elif text == Cancel:
-            bot.sendMessage(chat_id=update.message.chat_id, text="Operation canceled", reply_markup=reply_markup)
+            set_wifi(False)
+            message ="WiFi disabled"
+        else:
+            message = "Operation canceled"
+        bot.sendMessage(chat_id=update.message.chat_id, text=message, reply_markup=reply_markup)
         state[chat_id] = MENU
 def set_wifi(value):
     r_api = RouterAPI();
