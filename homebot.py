@@ -21,7 +21,7 @@ updater = Updater(token=token)
 dispatcher = updater.dispatcher
 jobs = updater.job_queue
 
- ON, OFF, Cancel = ("On", "Off", "Cancel")
+ON, OFF, Cancel = ("On", "Off", "Cancel")
  
 # Define the different states a chat can be in
 MENU, AWAIT_CONFIRMATION, AWAIT_INPUT = range(3)
