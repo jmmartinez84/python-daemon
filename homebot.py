@@ -21,22 +21,40 @@ updater = Updater(token=token)
 dispatcher = updater.dispatcher
 jobs = updater.job_queue
 
+ ON, OFF, Cancel = ("On", "Off", "Cancel")
+ 
+# Define the different states a chat can be in
+MENU, AWAIT_CONFIRMATION, AWAIT_INPUT = range(3)
+
+# States are saved in a dict that maps chat_id -> state
+state = dict()
+
 def text_message(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
     text = update.message.text
-    print user_id
+    if chat_state == AWAIT_INPUT and chat_context == user_id:
+        reply_markup = telegram.ReplyKeyboardHide()
+        if text == ON:
+            bot.sendMessage(chat_id=update.message.chat_id, text="On wifi", reply_markup=reply_markup)
+        elif text == OFF:
+            bot.sendMessage(chat_id=update.message.chat_id, text="Off wifi", reply_markup=reply_markup)
+        elif text == Cancel:
+            bot.sendMessage(chat_id=update.message.chat_id, text="Operation canceled", reply_markup=reply_markup)
+        state[chat_id] = MENU
 def set_wifi(value):
     r_api = RouterAPI();
     r_api.log_in();
     r_api.wifi_settings(value);
     r_api.log_out();
 def start(bot, update):
+    state[chat_id] = MENU
     bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
 def wifi(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
-    custom_keyboard = [[ telegram.KeyboardButton("On"),telegram.KeyboardButton("Off"), telegram.KeyboardButton("Cancel") ]]
+    state[chat_id] = AWAIT_INPUT
+    custom_keyboard = [[ telegram.KeyboardButton(ON),telegram.KeyboardButton(OFF), telegram.KeyboardButton(Cancel) ]]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard,  resize_keyboard = False, one_time_keyboard=True)
     results = bot.sendMessage(chat_id=update.message.chat_id, text="Wifi:", reply_markup=reply_markup)
     print results
