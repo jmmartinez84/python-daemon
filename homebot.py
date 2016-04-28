@@ -33,6 +33,7 @@ def text_message(bot, update):
     chat_id = update.message.chat_id
     user_id = update.message.from_user.id
     text = update.message.text
+    chat_state = state.get(chat_id, MENU)
     if chat_state == AWAIT_INPUT and chat_context == user_id:
         reply_markup = telegram.ReplyKeyboardHide()
         if text == ON:
@@ -73,4 +74,3 @@ wifi_handler = CommandHandler('wifi', wifi)
 dispatcher.addHandler(wifi_handler)
 jobs.put(job_alerts, 5*60)
 updater.start_polling()
-updater.idle()
