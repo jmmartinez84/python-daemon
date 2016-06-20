@@ -6,8 +6,8 @@ from telegram.ext import Updater, MessageHandler, Filters
 from settings import settings
 from telegram.ext import CommandHandler
 from DjangoRestClient import DjangoRestClient
-sys.path.insert(0, '/home/pi/router')
-from RouterAPI import RouterAPI
+#sys.path.insert(0, '/home/pi/router')
+#from RouterAPI import RouterAPI
 
 import logging
 logging.basicConfig(level=logging.INFO,
@@ -41,20 +41,20 @@ def text_message(bot, update):
         reply_markup = telegram.ReplyKeyboardHide()
         message = ""
         if text == ON:
-            set_wifi(True)
+            #set_wifi(True)
             message = "WiFi enabled"
         elif text == OFF:
-            set_wifi(False)
+            #set_wifi(False)
             message ="WiFi disabled"
         else:
             message = "Operation canceled"
         bot.sendMessage(chat_id=update.message.chat_id, text=message, reply_markup=reply_markup)
         state[chat_id] = MENU
-def set_wifi(value):
-    r_api = RouterAPI();
-    r_api.log_in();
-    r_api.wifi_settings(value);
-    r_api.log_out();
+#def set_wifi(value):
+#    r_api = RouterAPI();
+#    r_api.log_in();
+#    r_api.wifi_settings(value);
+#    r_api.log_out();
 def start(bot, update):
     chat_id = update.message.chat_id
     state[chat_id] = MENU

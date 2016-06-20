@@ -313,4 +313,9 @@ class DjangoRestClient:
         content = urllib2.urlopen(url=url, data=data).read()
         temperature = json.loads(content)
         return temperature
+    def del_temperature(self, pk):
+        temperature_url = u'temperature/'
+        url = self.baseUrl+temperature_url+str(pk)+u'/'
+        data = urllib.urlencode({'_method':'DELETE'})
+        content = urllib2.urlopen(url=url, data=data).read()
 
